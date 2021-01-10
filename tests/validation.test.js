@@ -1,4 +1,4 @@
-import iTunes from "../src/index";
+import iTunes from "../src/index.js";
 import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 

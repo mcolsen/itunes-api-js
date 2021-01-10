@@ -1,4 +1,4 @@
-import iTunes from "../src/index";
+import iTunes from "../src/index.js";
 
 describe("Search", () => {
 	it("no params / search(term)", async () => {

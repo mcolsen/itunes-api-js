@@ -1,4 +1,4 @@
-import iTunes from "../src/index";
+import iTunes from "../src/index.js";
 
 describe("Lookup", () => {
 	describe("iTunes ID / lookup.id()", () => {

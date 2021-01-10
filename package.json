@@ -6,6 +6,9 @@
 	"repository": "https://github.com/mcolsen/itunes-api-js.git",
 	"author": "Maria Olsen (https://github.com/mcolsen)",
 	"license": "MIT",
+	"files": [
+		"src/*"
+	],
 	"private": true,
 	"scripts": {
 		"test": "cypress open",

@@ -1,6 +1,6 @@
 import jsonp from "jsonp";
 import joi from "joi";
-import paramSchema from "./param-schema";
+import paramSchema from "./param-schema.js";
 
 const baseURL = "https://itunes.apple.com/";
 
