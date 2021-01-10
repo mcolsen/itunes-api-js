@@ -4,6 +4,8 @@ Simple promise-based library that provides helper functions and request validati
 
 ## Installation
 
+`yarn add itunes-api-js` or `npm install itunes-api-js`
+
 itunes-api-js is intended for use in the browser and does not support Node.
 
 ## Usage

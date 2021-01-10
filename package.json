@@ -9,7 +9,6 @@
 	"files": [
 		"src/*"
 	],
-	"private": true,
 	"scripts": {
 		"test": "cypress open",
 		"format": "eslint . && prettier -w ."
