@@ -2,7 +2,7 @@ import joi from "joi";
 import _ from "lodash";
 
 const valid = {
-	//	ISO 3166-1 alpha-2 country codes
+	// ISO 3166-1 alpha-2 country codes
 	country: [
 		"AF",
 		"AX",
@@ -471,7 +471,7 @@ const search = joi
 			}
 		}
 
-		//	The function should return or throw beforehand, but to prevent validation from hanging in case it doesn't
+		// The function should return or throw beforehand, but to prevent validation from hanging in case it doesn't
 		throw new Error(
 			`Unknown validation error - "media", "entity", and/or "attribute`
 		);

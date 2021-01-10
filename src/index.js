@@ -4,7 +4,7 @@ import paramSchema from "./param-schema";
 
 const baseURL = "https://itunes.apple.com/";
 
-//	** "Private" non-exported helper functions **
+// ** "Private" non-exported helper functions **
 
 const request = (url, resolve) => {
 	jsonp(url, null, (err, data) => {
@@ -26,14 +26,14 @@ const addlParamString = (addlParam) => {
 	return string;
 };
 
-//	** Lookup API helper functions **
+// ** Lookup API helper functions **
 
 const parseURL = (url) => {
-	//	Do not use outside try/catch block inside promise executor
+	// Do not use outside try/catch block inside promise executor
 	const valid = joi
 		.string()
 		.pattern(
-			/((itunes|music)\.apple\.com\/us\/(album|artist|music-video)\/)(.*)(?=\/)\/(.*)/i //Regex matches URLs for iTunes/Apple Music
+			/((itunes|music)\.apple\.com\/us\/(album|artist|music-video)\/)(.*)(?=\/)\/(.*)/i // Regex matches URLs for iTunes/Apple Music
 		)
 		.validate(url);
 	if (valid.error) {
@@ -43,17 +43,17 @@ const parseURL = (url) => {
 	let id;
 	const { error } = joi
 		.string()
-		.pattern(/((itunes|music)\.apple\.com\/us\/album\/)(.*(.+?(?=\?i=)))/i) //Regex matches URLs for tracks, which require a different regex for parsing the id
+		.pattern(/((itunes|music)\.apple\.com\/us\/album\/)(.*(.+?(?=\?i=)))/i) // Regex matches URLs for tracks, which require a different regex for parsing the id
 		.validate(url);
 	if (error) {
-		id = url.match(/(?<=(album|artist|music-video)\/(.*)\/).*/gi); //Regex matches id in iTunes/Apple Music non-track URLs
+		id = url.match(/(?<=(album|artist|music-video)\/(.*)\/).*/gi); // Regex matches id in iTunes/Apple Music non-track URLs
 		id && (id = id[0]);
 	} else {
-		id = url.match(/(?<=\?i=).*/gi); //Regex matches id in iTunes/Apple Music track URLs
+		id = url.match(/(?<=\?i=).*/gi); // Regex matches id in iTunes/Apple Music track URLs
 		id && (id = id[0]);
 	}
 
-	//	Regex matches should work, but just in case they don't
+	// Regex matches should work, but just in case they don't
 	if (id) {
 		return id;
 	} else {
@@ -88,7 +88,7 @@ const lookupURL = (urlParam, value, addlString) => {
 };
 
 const lookupRequest = (urlParam, value, addlParam, resolve) => {
-	//	Do not use outside try/catch block inside promise executor
+	// Do not use outside try/catch block inside promise executor
 
 	let addlString = "";
 	if (addlParam) {
@@ -110,7 +110,7 @@ const lookupPromise = (urlParam, value, addlParam) => {
 	});
 };
 
-//	** Exported object with methods **
+// ** Exported object with methods **
 const iTunes = {
 	search: (term, addlParam) =>
 		new Promise((resolve, reject) => {

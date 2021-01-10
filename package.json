@@ -1,6 +1,6 @@
 {
 	"name": "itunes-api-js",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"main": "src/index.js",
 	"type": "module",
 	"repository": "https://github.com/mcolsen/itunes-api-js.git",
@@ -8,7 +8,8 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"check": "eslint . && prettier -w ."
+		"test": "cypress open",
+		"format": "eslint . && prettier -w ."
 	},
 	"dependencies": {
 		"joi": "^17.3.0",
@@ -16,8 +17,11 @@
 		"lodash": "^4.17.20"
 	},
 	"devDependencies": {
+		"chai-as-promised": "^7.1.1",
+		"cypress": "^6.2.1",
 		"eslint": "^7.17.0",
 		"eslint-config-prettier": "^7.1.0",
+		"eslint-plugin-cypress": "^2.11.2",
 		"prettier": "^2.2.1"
 	},
 	"eslintConfig": {
@@ -27,12 +31,16 @@
 		},
 		"extends": [
 			"eslint:recommended",
-			"prettier"
+			"prettier",
+			"plugin:cypress/recommended"
 		],
 		"parserOptions": {
 			"ecmaVersion": 12,
 			"sourceType": "module"
-		}
+		},
+		"plugins": [
+			"cypress"
+		]
 	},
 	"prettier": {
 		"useTabs": true

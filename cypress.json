@@ -1,0 +1,7 @@
+{
+	"pluginsFile": false,
+	"fixturesFolder": false,
+	"supportFile": false,
+	"integrationFolder": "tests",
+	"testFiles": "*.test.js"
+}
