@@ -1,9 +1,11 @@
 import jsonp from "jsonp";
 import joi from "joi";
+import paramSchema from "./param-schema";
 
 const baseURL = "https://itunes.apple.com/";
 
-//	** "Private" non-exported functions **
+//	** "Private" non-exported helper functions **
+
 const request = (url, resolve) => {
 	jsonp(url, null, (err, data) => {
 		if (err) {
@@ -24,8 +26,10 @@ const addlParamString = (addlParam) => {
 	return string;
 };
 
-//	Do not use outside try/catch block inside promise executor
+//	** Lookup API helper functions **
+
 const parseURL = (url) => {
+	//	Do not use outside try/catch block inside promise executor
 	const valid = joi
 		.string()
 		.pattern(
@@ -58,13 +62,7 @@ const parseURL = (url) => {
 };
 
 const lookupAddlParam = (addlParam) => {
-	const { error } = joi
-		.object({
-			entity: joi.string(), //	Needs to validate against iTunes entities
-			limit: joi.number().positive().integer().max(200),
-			sort: joi.string().valid("recent"),
-		})
-		.validate(addlParam);
+	const { error } = paramSchema.lookup.validate(addlParam);
 
 	if (error) {
 		throw error;
@@ -89,8 +87,9 @@ const lookupURL = (urlParam, value, addlString) => {
 	}
 };
 
-//	Do not use outside try/catch block inside promise executor
 const lookupRequest = (urlParam, value, addlParam, resolve) => {
+	//	Do not use outside try/catch block inside promise executor
+
 	let addlString = "";
 	if (addlParam) {
 		addlString = lookupAddlParam(addlParam);
@@ -113,7 +112,28 @@ const lookupPromise = (urlParam, value, addlParam) => {
 
 //	** Exported object with methods **
 const iTunes = {
-	search() {},
+	search: (term, addlParam) =>
+		new Promise((resolve, reject) => {
+			try {
+				const { error } = joi.string().validate(term);
+				if (error) {
+					throw error;
+				}
+
+				let addlString = "";
+				if (addlParam) {
+					const { error } = paramSchema.search.validate(addlParam);
+					if (error) {
+						throw error;
+					}
+					addlString = addlParamString(addlParam);
+				}
+
+				request(`${baseURL}search?term=${term}${addlString}`, resolve);
+			} catch (e) {
+				reject(e);
+			}
+		}),
 
 	lookup: {
 		id: (id, addlParam) => lookupPromise("id", id, addlParam),
