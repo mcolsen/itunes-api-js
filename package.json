@@ -16,7 +16,7 @@
 	"dependencies": {
 		"joi": "^17.3.0",
 		"jsonp": "^0.2.1",
-		"lodash": "^4.17.20"
+		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
 		"chai-as-promised": "^7.1.1",
